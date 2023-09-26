@@ -4,44 +4,45 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
-    public float sensibility;
+    //variables publicas
+    public float sensitibity;
     public Transform cameraJointY, targetObject;
-    public bool canRotate;
-
+    public bool camRotate;
+    
+    //variables privadas
     private float xRotation, yRotation;
-
     // Start is called before the first frame update
     void Start()
     {
-        canRotate = true; 
+        camRotate = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canRotate) 
-        {
-
-            Rotate();
-
-        }
-
-        FollowTarget();
+        if (camRotate)
+        Rotate();
+         
+        followTarget();
     }
 
+    //rotacion de camara
     void Rotate()
     {
-        xRotation += Input.GetAxis("Mouse X") * Time.deltaTime * sensibility;
-        yRotation += Input.GetAxis("Mouse Y") * Time.deltaTime * sensibility;
+        //se consiguen los inputs del mouse
+        xRotation += Input.GetAxis("Mouse X") * Time.deltaTime * sensitibity;
+        yRotation += Input.GetAxis("Mouse Y") * Time.deltaTime * sensitibity;
 
+        //limitacion al eje y
         yRotation = Mathf.Clamp(yRotation, -65, 65);
 
-        transform.localRotation = Quaternion.Euler(0f, xRotation, 0f);
-        cameraJointY.transform.localRotation = Quaternion.Euler(-yRotation, 0f, 0f); 
+        //rotamos los componentes X y Y
+        transform.localRotation = Quaternion.Euler(0, xRotation, 0);
+        cameraJointY.transform.localRotation = Quaternion.Euler(-yRotation, 0, 0);
     }
 
-    void FollowTarget()
+    //sigue al objetivo
+    void followTarget()
     {
         transform.position = targetObject.position;
     }
