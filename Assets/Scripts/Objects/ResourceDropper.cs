@@ -7,7 +7,7 @@ public class ResourceDropper : MonoBehaviour
     public GameObject[] resources;
     public float spawnTime;
 
-    private int dropperTier;
+    public int dropperTier;
 
 
     // Start is called before the first frame update
